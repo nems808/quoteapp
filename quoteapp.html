@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Random Quote Machine</title>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+</head>
+
+<body translate="no">
+
+
+    <div class="container-fluid">
+        <div class="row text-center">
+            <h2>Random Quote Machine</h2>
+        </div>
+        <div class="row text-center">
+            <div class="col-xs-12 well message">
+                Loading quote...
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-xs-9 ">
+
+            </div>
+            <div class="col-xs-3 author">
+                Loading author...
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-xs-12">
+                <button id="getMessage" class="btn btn-primary">
+        Get a Quote
+      </button>
+            </div>
+        </div>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+    <script>
+        $(document).ready(function() {
+            $.getJSON(pullRandomQuote(1, 99999), function(json) {
+                $('.message').html(json.quoteText);
+                $('.author').html(json.quoteAuthor);
+            });
+            $('#getMessage').on('click', function() {
+                console.log('Clicked');
+                $('.message').html('Loading...');
+                $('.author').html('Loading...');
+                $.getJSON(pullRandomQuote(1, 99999), function(json) {
+                    console.log("MSG: " + json);
+                    $('.message').html(json.quoteText);
+                    $('.author').html(json.quoteAuthor);
+                });
+            });
+        });
+
+        function pullRandomQuote(min, max) {
+            var randNumb = Math.floor(Math.random() * (max - min + 1)) + min;
+            var apiLink = 'http://api.forismatic.com/api/1.0/?method=getQuote&key=' + randNumb + '&lang=en&format=jsonp&jsonp=?';
+            return apiLink;
+        }
+        //# sourceURL=pen.js
+    </script>
+
+
+
+
+</body>
+
+</html>
+
+
+
+</body>
+
+</html>
